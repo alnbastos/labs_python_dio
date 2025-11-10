@@ -1,7 +1,10 @@
-from operacoes_bancarias import depositar, sacar, visualizar_extrato
+from cadastros import criar_cliente
+from operacoes_bancarias import depositar, sacar, exibir_extrato
 
 menu = '''
 
+[u] Criar cliente
+[c] Criar conta corrente
 [d] Depositar
 [s] Sacar
 [e] Extrato
@@ -14,13 +17,31 @@ limite = 500
 extrato = ''
 numero_saques = 0
 LIMITE_SAQUES = 3
+clientes = []
 
 
 while True:
 
     opcao = input(menu)
 
-    if opcao == 'd':
+    if opcao == 'u':
+        print('\n================ CADASTRO DO CLIENTE ================')
+
+        nome = str(input('Informe o nome: '))
+        data_nascimento = str(input('Informe a data de nascimento: '))
+        cpf = str(input('Informe o CPF: '))
+        endereco = str(input('Informe o endereço: '))
+
+        if any([cliente.get('cpf') == cpf for cliente in clientes]):
+            print('Operação falhou! Este CPF já foi cadastrado.')
+        else:
+            cliente = criar_cliente(nome, data_nascimento, cpf, endereco)
+            if cliente:
+                clientes.append(cliente)
+
+        print('==========================================')
+
+    elif opcao == 'd':
         valor = float(input('Informe o valor do depósito: '))
         novo_saldo, novo_extrato = depositar(saldo, valor, extrato)
         if novo_saldo and novo_extrato:
@@ -39,7 +60,7 @@ while True:
             )
 
     elif opcao == 'e':
-        novo_extrato = visualizar_extrato(saldo, extrato=extrato)
+        novo_extrato = exibir_extrato(saldo, extrato=extrato)
         if novo_extrato:
             extrato = novo_extrato
 

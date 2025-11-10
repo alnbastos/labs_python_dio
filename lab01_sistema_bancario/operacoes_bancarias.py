@@ -37,7 +37,7 @@ def sacar(
         return None, None, None
 
 
-def visualizar_extrato(saldo, /, *, extrato):
+def exibir_extrato(saldo, /, *, extrato):
     """(Positional only e Keyword only)."""
     print('\n================ EXTRATO ================')
     print('Não foram realizadas movimentações.' if not extrato else extrato)

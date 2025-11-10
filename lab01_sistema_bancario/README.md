@@ -43,7 +43,7 @@ As funções devem permitir ao usuário realizar operações bancárias básicas
 
 2. Acesse o diretório:
 ``` bash
-    cd labs_python_dio/01_lab_sistema_bancario/
+    cd labs_python_dio/lab01_sistema_bancario/
 ```
 
 3. Execute o script:

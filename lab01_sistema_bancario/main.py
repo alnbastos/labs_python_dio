@@ -1,4 +1,4 @@
-from cadastros import criar_cliente
+from cadastros import criar_cliente, criar_conta_corrente
 from operacoes_bancarias import depositar, sacar, exibir_extrato
 
 menu = '''
@@ -17,7 +17,8 @@ limite = 500
 extrato = ''
 numero_saques = 0
 LIMITE_SAQUES = 3
-clientes = []
+clientes: list[dict] = []
+contas_correntes: list[dict] = []
 
 
 while True:
@@ -38,6 +39,16 @@ while True:
             cliente = criar_cliente(nome, data_nascimento, cpf, endereco)
             if cliente:
                 clientes.append(cliente)
+
+        print('==========================================')
+
+    elif opcao == 'c':
+        print('\n================ CADASTRO DE CONTA CORRENTE ================')
+
+        cpf_cliente = str(input('Informe o CPF do cliente que a conta será vinculada: '))
+        cc = criar_conta_corrente(contas_correntes, clientes, cpf_cliente)
+        if cc:
+            contas_correntes.append(cc)
 
         print('==========================================')
 

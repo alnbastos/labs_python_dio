@@ -54,10 +54,15 @@ def depositar(clientes: list) -> None:
         print('\n@@@ Operação falhou! Cliente não encontrado. @@@')
         return
 
+    numero_conta = 0
+    if len(cliente.contas) > 1:
+        numero_conta = \
+            int(input('Informe o número da conta que deseja depositar: ')) - 1
+
     valor = float(input('Informe o valor do depósito: '))
     transacao = Deposito(valor)
 
-    conta = recuperar_conta_cliente(cliente)
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 
@@ -73,10 +78,15 @@ def sacar(clientes: list) -> None:
         print('\n@@@ Operação falhou! Cliente não encontrado. @@@')
         return
 
+    numero_conta = 0
+    if len(cliente.contas) > 1:
+        numero_conta = \
+            int(input('Informe o número da conta que deseja sacar: ')) - 1
+
     valor = float(input('Informe o valor do saque: '))
     transacao = Saque(valor)
 
-    conta = recuperar_conta_cliente(cliente)
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 
@@ -92,7 +102,13 @@ def exibir_extrato(clientes: list) -> None:
         print('\n@@@ Operação falhou! Cliente não encontrado. @@@')
         return
 
-    conta = recuperar_conta_cliente(cliente)
+    numero_conta = 0
+    if len(cliente.contas) > 1:
+        numero_conta = int(input(
+            'Informe o número da conta que deseja visualizar extrato: '
+        )) - 1
+
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 

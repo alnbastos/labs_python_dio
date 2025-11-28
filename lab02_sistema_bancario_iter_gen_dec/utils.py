@@ -33,10 +33,10 @@ def filtrar_cliente(cpf: str, clientes: list[PessoaFisica]) -> Cliente | None:
     return cliente[0] if cliente else None
 
 
-def recuperar_conta_cliente(cliente: PessoaFisica) -> ContaCorrente | None:
+def recuperar_conta_cliente(cliente: PessoaFisica,
+                            numero_conta: int = 0) -> ContaCorrente | None:
     if not cliente.contas:
         print('@@@ Operação falhou! Cliente não possui conta! @@@')
         return
 
-    # FIXME: não permite cliente escolher a conta
-    return cliente.contas[0]
+    return cliente.contas[numero_conta]

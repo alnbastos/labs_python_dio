@@ -3,13 +3,25 @@ from conta_corrente import ContaCorrente
 
 
 class ContaIterador:
-    pass
+    def __init__(self, contas_correntes: list[ContaCorrente]):
+        self._contas_correntes = contas_correntes
+        self._contador = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        try:
+            cc = self._contas_correntes[self._contador]
+            self._contador += 1
+            return str(cc)
+        except IndexError:
+            raise StopIteration
 
 
 def log_transacao(funcao):
 
     def envelope(*args, **kargs):
-        print('entrou no log')
         funcao(*args, **kargs)
 
     return envelope

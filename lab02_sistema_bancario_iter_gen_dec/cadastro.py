@@ -3,7 +3,7 @@ import textwrap
 
 from conta_corrente import ContaCorrente
 from cliente import PessoaFisica
-from utils import log_transacao, filtrar_cliente
+from utils import ContaIterador, log_transacao, filtrar_cliente
 
 
 @log_transacao
@@ -58,7 +58,6 @@ def criar_conta_corrente(
 
 
 def listar_contas_corrente(contas_corrente: list[ContaCorrente]):
-    # TODO: alterar implementação para utilizar a classe contaIterador
-    for cc in contas_corrente:
+    for cc in ContaIterador(contas_corrente):
         print('='*40)
-        print(textwrap.dedent(str(cc)))
+        print(textwrap.dedent(cc))

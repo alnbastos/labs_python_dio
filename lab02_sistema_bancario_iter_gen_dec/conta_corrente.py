@@ -92,7 +92,7 @@ class ContaCorrente(Conta):
 
 class Historico:
     def __init__(self):
-        self._transacoes = []
+        self._transacoes: list[dict] = []
 
     @property
     def transacoes(self):
@@ -106,4 +106,6 @@ class Historico:
         })
 
     def gerar_relatorio(self, tipo_transacao=None):
-        pass
+        for transacao in self._transacoes:
+            if not tipo_transacao or transacao.get('tipo') == tipo_transacao:
+                yield transacao

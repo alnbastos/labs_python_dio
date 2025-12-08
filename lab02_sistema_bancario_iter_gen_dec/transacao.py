@@ -113,15 +113,14 @@ def exibir_extrato(clientes: list) -> None:
         return
 
     print('\n================ EXTRATO ================')
-    # TODO: atualizar a implementação para utilizar
-    # o gerador definido em Historico
-    transcoes = conta.historico.transacoes
+    tipo_extrato = input('Informe o tipo de operação que deseja visualizar: ')
+    transacoes = conta.historico.gerar_relatorio(tipo_extrato.title())
 
     extrato = ''
-    if not transcoes:
+    if not transacoes:
         extrato = 'Não foram realizadas movimentações.'
     else:
-        for transacao in transcoes:
+        for transacao in transacoes:
             extrato += f"\n{transacao['tipo']}:\n\tR$ {transacao['valor']:.2f}"
 
     print(extrato)

@@ -1,6 +1,6 @@
 import textwrap
 
-from cliente import Cliente
+from cliente import PessoaFisica
 from conta_corrente import ContaCorrente
 from cadastro import (
     listar_contas_corrente,
@@ -28,7 +28,7 @@ def menu():
 
 
 def main():
-    clientes: list[Cliente] = []
+    clientes: list[PessoaFisica] = []
     contas_correntes: list[ContaCorrente] = []
 
     while True:

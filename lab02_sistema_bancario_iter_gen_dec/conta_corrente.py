@@ -87,6 +87,7 @@ class ContaCorrente(Conta):
             Agência:\t{self.agencia}
             C/C:\t\t{self.numero}
             Titular:\t{self.cliente.nome}
+            Saldo:\t\tR$ {self.saldo:.2f}
         """
 
 
@@ -102,10 +103,26 @@ class Historico:
         self._transacoes.append({
             'tipo': transacao.__class__.__name__,
             'valor': transacao.valor,
-            'data': datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+            'data': datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S'),
         })
 
-    def gerar_relatorio(self, tipo_transacao=None):
+    def gerar_relatorio(self, tipo_transacao: str = None):
         for transacao in self._transacoes:
-            if not tipo_transacao or transacao.get('tipo') == tipo_transacao:
+            if not tipo_transacao or (
+                transacao.get('tipo').lower() == tipo_transacao.lower()
+            ):
                 yield transacao
+
+    def transacoes_do_dia(self):
+        data_atual = datetime.utcnow().date()
+        transacoes = []
+
+        for transacao in self._transacoes:
+            data_transacao = datetime.strptime(
+                transacao.get('data'), '%d-%m-%Y %H:%M:%S'
+            ).date()
+
+            if data_atual == data_transacao:
+                transacoes.append(transacao)
+
+        return transacoes

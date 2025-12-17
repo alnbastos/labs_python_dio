@@ -7,12 +7,12 @@ class Cliente:
         self.contas = []
 
     def realizar_transacao(self, conta: Conta, transacao):
-        if len(conta.historico.transacoes_do_dia()) >= 10:
+        if conta and len(conta.historico.transacoes_do_dia()) >= 10:
             print(
                 '\n@@@ Operação falhou! Você excedeu o número de transações '
                 'permitidas para hoje! @@@'
             )
-            return
+            return 'FALHA: Limite de transações excedidas.'
 
         transacao.registrar(conta)
 

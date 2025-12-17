@@ -17,11 +17,11 @@ def criar_cliente(clientes: list) -> None:
 
     if not validar_cpf(cpf):
         print('@@@ Operação falhou! Preencha o CPF apenas com números. @@@')
-        return
+        return 'FALHA: CPF incorreto.'
 
     if filtrar_cliente(cpf, clientes):
         print('@@@ Operação falhou! Este CPF já foi cadastrado. @@@')
-        return
+        return 'FALHA: CPF já cadastrado.'
 
     cliente = PessoaFisica(
         cpf=cpf,
@@ -35,6 +35,7 @@ def criar_cliente(clientes: list) -> None:
     clientes.append(cliente)
 
     print('\n=== Cliente criado com sucesso! ===\n')
+    return 'SUCESSO'
 
 
 @log_transacao
@@ -46,15 +47,16 @@ def criar_conta_corrente(
     cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
-        print('@@@ Operação falhou! Cliente não encontrado,'
+        print('@@@ Operação falhou! Cliente não encontrado, '
               'fluxo de criação de conta encerrado! @@@')
-        return
+        return 'FALHA: Cliente não encontrado.'
 
     conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta)
     contas_correntes.append(conta)
     cliente.contas.append(conta)
 
     print('\n=== Conta Corrente criada com sucesso! ===\n')
+    return 'SUCESSO'
 
 
 def listar_contas_corrente(contas_corrente: list[ContaCorrente]):

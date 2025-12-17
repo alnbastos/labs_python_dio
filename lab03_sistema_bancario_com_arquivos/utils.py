@@ -1,4 +1,6 @@
 import datetime
+from pathlib import Path
+
 from cliente import PessoaFisica, Cliente
 from conta_corrente import ContaCorrente
 
@@ -25,13 +27,33 @@ def log_transacao(funcao):
     def envelope(*args, **kargs):
         resultado = funcao(*args, **kargs)
 
-        data_hora = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        # [TODO] alterar a implementação para salvar em arquivo.
-        print(f'{data_hora}: {funcao.__name__.upper()}')
+        gerar_arquivo_log(
+            nome_funcao=funcao.__name__.upper(),
+            argumentos_funcao=args,
+            resultado=resultado
+        )
 
         return resultado
 
     return envelope
+
+
+def gerar_arquivo_log(
+    nome_funcao: str, argumentos_funcao: str, resultado: str
+):
+    caminho_root = Path(__file__).parent
+    data_hora = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    try:
+        with open(caminho_root / 'log.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(
+                f'{data_hora}: {nome_funcao}, '
+                f'{argumentos_funcao}, {resultado}\n'
+            )
+
+    except IOError:
+        print('\n@@@ Operação falhou! Problema ao abrir arquivo, '
+              'informação não registrada. @@@')
 
 
 def filtrar_cliente(cpf: str, clientes: list[PessoaFisica]) -> Cliente | None:

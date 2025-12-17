@@ -52,7 +52,7 @@ def depositar(clientes: list) -> None:
 
     if not cliente:
         print('\n@@@ Operação falhou! Cliente não encontrado. @@@')
-        return
+        return 'FALHA: Cliente não encontrado.'
 
     numero_conta = 0
     if len(cliente.contas) > 1:
@@ -64,9 +64,10 @@ def depositar(clientes: list) -> None:
 
     conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
-        return
+        return 'FALHA: Cliente não possui conta.'
 
     cliente.realizar_transacao(conta, transacao)
+    return 'SUCESSO'
 
 
 @log_transacao
@@ -88,9 +89,10 @@ def sacar(clientes: list) -> None:
 
     conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
-        return
+        return 'FALHA: Cliente não encontrado.'
 
     cliente.realizar_transacao(conta, transacao)
+    return 'SUCESSO'
 
 
 @log_transacao
@@ -100,7 +102,7 @@ def exibir_extrato(clientes: list) -> None:
 
     if not cliente:
         print('\n@@@ Operação falhou! Cliente não encontrado. @@@')
-        return
+        return 'FALHA: Cliente não encontrado.'
 
     numero_conta = 0
     if len(cliente.contas) > 1:

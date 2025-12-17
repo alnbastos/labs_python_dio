@@ -29,7 +29,8 @@ def log_transacao(funcao):
 
         gerar_arquivo_log(
             nome_funcao=funcao.__name__.upper(),
-            argumentos_funcao=args,
+            args_funcao=args,
+            kwargs_funcao=kargs,
             resultado=resultado
         )
 
@@ -38,17 +39,16 @@ def log_transacao(funcao):
     return envelope
 
 
-def gerar_arquivo_log(
-    nome_funcao: str, argumentos_funcao: str, resultado: str
-):
+def gerar_arquivo_log(nome_funcao, args_funcao, kwargs_funcao, resultado):
     caminho_root = Path(__file__).parent
     data_hora = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
         with open(caminho_root / 'log.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(
-                f'{data_hora}: {nome_funcao}, '
-                f'{argumentos_funcao}, {resultado}\n'
+                f'[{data_hora}] Função "{nome_funcao.__name__}" '
+                f'executada com argumentos {args_funcao} e {kwargs_funcao}. '
+                f'Retornou {resultado}\n'
             )
 
     except IOError:

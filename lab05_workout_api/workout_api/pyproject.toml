@@ -27,3 +27,4 @@ dev = [
 
 [tool.taskipy.tasks]
 run = 'uvicorn main:app --reload'
+format = "isort ${TARGET:-.} && black ${TARGET:-.}"

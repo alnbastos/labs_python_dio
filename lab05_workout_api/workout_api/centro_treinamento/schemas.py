@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import Field
 
-from contrib.schemas import BaseSchema
+from workout_api.contrib.schemas import BaseSchema, OutMixin
 
 
 class CentroTreinamento(BaseSchema):
@@ -30,3 +30,11 @@ class CentroTreinamento(BaseSchema):
             max_length=30,
         ),
     ]
+
+
+class CentroTreinamentoIn(CentroTreinamento):
+    pass
+
+
+class CentroTreinamentoOut(CentroTreinamento, OutMixin):
+    pass

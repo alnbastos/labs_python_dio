@@ -16,5 +16,5 @@ class CentroTreinamentoModel(BaseModel):
     criado_em: Mapped[datetime] = mapped_column(DateTime, nullable=False)
 
     atleta: Mapped["AtletaModel"] = relationship(
-        back_populates="centro_treinamento"
+        back_populates="centro_treinamento",
     )

@@ -1,4 +1,3 @@
-from pydantic import UUID4
 from sqlalchemy.future import select
 
 from workout_api.categoria.models import CategoriaModel
@@ -7,18 +6,17 @@ from workout_api.contrib.dependencies import DatabaseDependency
 
 
 class CategoriaUtils:
-    async def filter_by_id(
-        db_session: DatabaseDependency, categoria_id: UUID4
-    ) -> CategoriaOut:
-        return (
-            (
-                await db_session.execute(
-                    select(CategoriaModel).filter_by(id=categoria_id)
-                )
-            )
-            .scalars()
-            .first()
-        )
+    @staticmethod
+    async def filter_by(
+        db_session: DatabaseDependency,
+        **kwargs,
+    ) -> CategoriaOut | None:
+        stmt = select(CategoriaModel).filter_by(**kwargs)
+        result = await db_session.execute(stmt)
+        return result.scalars().first()
 
+    @staticmethod
     async def filter_all(db_session: DatabaseDependency) -> list[CategoriaOut]:
-        return (await db_session.execute(select(CategoriaModel))).scalars().all()
+        stmt = select(CategoriaModel)
+        result = await db_session.execute(stmt)
+        return result.scalars().all()

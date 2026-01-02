@@ -39,8 +39,8 @@ async def get_by_id(
     db_session: DatabaseDependency,
     ct_id: UUID4,
 ) -> CentroTreinamentoOut:
-    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by_id(
-        db_session, ct_id
+    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by(
+        db_session, id=ct_id
     )
 
     if not ct:
@@ -84,8 +84,8 @@ async def put(
     ct_id: UUID4,
     ct_in: CentroTreinamentoIn = Body(...),
 ):
-    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by_id(
-        db_session, ct_id
+    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by(
+        db_session, id=ct_id
     )
 
     if not ct:
@@ -112,8 +112,8 @@ async def delete(
     db_session: DatabaseDependency,
     ct_id: UUID4,
 ):
-    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by_id(
-        db_session, ct_id
+    ct: CentroTreinamentoOut = await CentroTreinamentoUtils.filter_by(
+        db_session, id=ct_id
     )
 
     if not ct:

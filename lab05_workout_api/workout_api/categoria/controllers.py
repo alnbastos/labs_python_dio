@@ -31,8 +31,8 @@ async def get_all(db_session: DatabaseDependency) -> list[CategoriaOut]:
 async def get_by_id(
     db_session: DatabaseDependency, categoria_id: UUID4
 ) -> CategoriaOut:
-    categoria: CategoriaOut = await CategoriaUtils.filter_by_id(
-        db_session, categoria_id
+    categoria: CategoriaOut = await CategoriaUtils.filter_by(
+        db_session, id=categoria_id
     )
 
     if not categoria:
@@ -76,8 +76,8 @@ async def put(
     categoria_id: UUID4,
     categoria_in: CategoriaIn = Body(...),
 ):
-    categoria: CategoriaOut = await CategoriaUtils.filter_by_id(
-        db_session, categoria_id
+    categoria: CategoriaOut = await CategoriaUtils.filter_by(
+        db_session, id=categoria_id
     )
 
     if not categoria:
@@ -104,8 +104,8 @@ async def delete(
     db_session: DatabaseDependency,
     categoria_id: UUID4,
 ):
-    categoria: CategoriaOut = await CategoriaUtils.filter_by_id(
-        db_session, categoria_id
+    categoria: CategoriaOut = await CategoriaUtils.filter_by(
+        db_session, id=categoria_id
     )
 
     if not categoria:

@@ -1,4 +1,3 @@
-from pydantic import UUID4
 from sqlalchemy.future import select
 
 from workout_api.centro_treinamento.models import CentroTreinamentoModel
@@ -7,26 +6,19 @@ from workout_api.contrib.dependencies import DatabaseDependency
 
 
 class CentroTreinamentoUtils:
-    async def filter_by_id(
-        db_session: DatabaseDependency, ct_id: UUID4
-    ) -> CentroTreinamentoOut:
-        return (
-            (
-                await db_session.execute(
-                    select(CentroTreinamentoModel).filter_by(id=ct_id)
-                )
-            )
-            .scalars()
-            .first()
-        )
+    @staticmethod
+    async def filter_by(
+        db_session: DatabaseDependency,
+        **kwargs,
+    ) -> CentroTreinamentoOut | None:
+        stmt = select(CentroTreinamentoModel).filter_by(**kwargs)
+        result = await db_session.execute(stmt)
+        return result.scalars().first()
 
+    @staticmethod
     async def filter_all(
         db_session: DatabaseDependency,
     ) -> list[CentroTreinamentoOut]:
-        return (
-            (
-                await db_session.execute(select(CentroTreinamentoModel))
-            )
-            .scalars()
-            .all()
-        )
+        stmt = select(CentroTreinamentoModel)
+        result = await db_session.execute(stmt)
+        return result.scalars().all()

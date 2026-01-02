@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from workout_api.categoria.controllers import router as router_categoria
 
+app = FastAPI(title="Workout API")
 
-@app.get("/")
-def read_hello_word():
-    return {"message": "Hello World!"}
+routers = [
+    router_categoria,
+]
+
+for router in routers:
+    app.include_router(router)

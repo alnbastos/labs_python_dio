@@ -120,7 +120,7 @@ poetry install
 
 5. Execute a aplicação:
 ```bash
-uvicorn main:app --reload
+task run
 ```
 
 6. Acesse a documentação interativa:

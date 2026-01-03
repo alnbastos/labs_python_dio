@@ -25,9 +25,20 @@ class CentroTreinamento(BaseSchema):
     proprietario: Annotated[
         str,
         Field(
-            description="Prorietário do Centro de Treinamento",
+            description="Proprietário do Centro de Treinamento",
             example="Marcos",
             max_length=30,
+        ),
+    ]
+
+
+class CentroTreinamentoAtletaIn(BaseSchema):
+    nome: Annotated[
+        str,
+        Field(
+            description="Nome do Centro de Treinamento",
+            example="CT King",
+            max_length=20,
         ),
     ]
 

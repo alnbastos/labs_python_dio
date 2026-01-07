@@ -1,0 +1,29 @@
+[project]
+name = "lab08-sistema-bancario-api"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Aline Bastos",email = "alinebastos23@outlook.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "fastapi[standart] (>=0.128.0,<0.129.0)",
+    "sqlalchemy (>=2.0.45,<3.0.0)",
+    "uvicorn (>=0.40.0,<0.41.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "taskipy (>=1.14.1,<2.0.0)"
+]
+
+[tool.taskipy.tasks]
+run = 'uvicorn src.main:app --reload'
+format = "isort ${TARGET:-.} && black ${TARGET:-.}"
+make_migrations = "alembic revision --autogenerate -m ${TARGET:-init_db}"
+migrate = "alembic upgrade head"

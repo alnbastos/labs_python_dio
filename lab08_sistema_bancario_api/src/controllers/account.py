@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from src.configs.dependencies import DatabaseDependency
+from src.configs.dependencies import Database
 from src.schemas.account import AccountIn, AccountOut
 from src.services.account import AccountService
 
@@ -15,7 +15,7 @@ account_service = AccountService()
     status_code=status.HTTP_200_OK,
     response_model=list[AccountOut],
 )
-async def read(db: DatabaseDependency):
+async def read(db: Database):
     accounts = await account_service.read(db)
     return [AccountOut.model_validate(account) for account in accounts]
 
@@ -26,6 +26,6 @@ async def read(db: DatabaseDependency):
     status_code=status.HTTP_201_CREATED,
     response_model=AccountOut,
 )
-async def create(db: DatabaseDependency, account_in: AccountIn) -> AccountOut:
+async def create(db: Database, account_in: AccountIn) -> AccountOut:
     account = await account_service.create(db, account_in)
     return AccountOut.model_validate(account)

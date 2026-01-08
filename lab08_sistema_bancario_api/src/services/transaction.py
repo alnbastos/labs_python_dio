@@ -1,6 +1,6 @@
 from sqlalchemy.future import select
 
-from src.configs.dependencies import DatabaseDependency
+from src.configs.dependencies import Database
 from src.exceptions import AccountNotFoundError, BusinessError
 from src.models.account import AccountModel
 from src.models.transaction import TransactionModel, TransactionType
@@ -11,15 +11,13 @@ from src.services.account import AccountService
 class TransactionService:
     account_service = AccountService()
 
-    async def read(self, db: DatabaseDependency) -> list[TransactionModel]:
+    async def read(self, db: Database) -> list[TransactionModel]:
         stmt = select(TransactionModel)
         result = await db.execute(stmt)
         return result.scalars().all()
 
     async def create(
-        self,
-        db: DatabaseDependency,
-        transaction: TransactionIn,
+        self, db: Database, transaction: TransactionIn
     ) -> TransactionModel:
 
         # Obtem a conta bancária
@@ -47,19 +45,14 @@ class TransactionService:
         return t
 
     async def __update_account_balance(
-        self,
-        db,
-        account: AccountModel,
-        balance: float,
+        self, db: Database, account: AccountModel, balance: float
     ) -> None:
         account.balance = balance
         await db.commit()
         await db.refresh(account)
 
     async def __register_transaction(
-        self,
-        db: DatabaseDependency,
-        transaction: TransactionIn,
+        self, db: Database, transaction: TransactionIn
     ) -> TransactionModel:
         model = TransactionModel(**transaction.model_dump())
         db.add(model)

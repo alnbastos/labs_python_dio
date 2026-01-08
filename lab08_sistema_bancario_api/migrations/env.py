@@ -6,9 +6,8 @@ from sqlalchemy.engine import Connection
 
 from src.configs.database import engine
 from src.configs.settings import settings
-from src.models.address import AddressModel  # noqa
+from src.models.account import AccountModel  # noqa
 from src.models.base import BaseModel
-from src.models.client import ClientModel, ClientPFModel  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -8,6 +8,7 @@ from src.configs.database import engine
 from src.configs.settings import settings
 from src.models.account import AccountModel  # noqa
 from src.models.base import BaseModel
+from src.models.transaction import TransactionModel  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -11,6 +11,15 @@ class AccountService:
         result = await db.execute(stmt)
         return result.scalars().all()
 
+    async def read_by_id(
+        self,
+        db: DatabaseDependency,
+        pk: int,
+    ) -> AccountModel:
+        stmt = select(AccountModel).filter_by(id=pk)
+        result = await db.execute(stmt)
+        return result.scalars().first()
+
     async def create(
         self,
         db: DatabaseDependency,

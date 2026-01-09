@@ -16,6 +16,11 @@ class AccountService:
         result = await db.execute(stmt)
         return result.scalars().first()
 
+    async def read_by(self, db: Database, **kwargs) -> AccountModel:
+        stmt = select(AccountModel).filter_by(**kwargs)
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
     async def create(
         self,
         db: Database,

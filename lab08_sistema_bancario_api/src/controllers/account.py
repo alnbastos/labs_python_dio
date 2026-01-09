@@ -1,12 +1,17 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, status
 
 from src.configs.dependencies import Database
 from src.schemas.account import AccountIn, AccountOut
 from src.schemas.transaction import TransactionOut
+from src.security import verify_token
 from src.services.account import AccountService
 from src.services.transaction import TransactionService
 
-router = APIRouter(prefix="/accounts", tags=["Accounts"])
+router = APIRouter(
+    prefix="/accounts",
+    tags=["Accounts"],
+    dependencies=[Depends(verify_token)],
+)
 
 account_service = AccountService()
 tx_service = TransactionService()

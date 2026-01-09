@@ -1,4 +1,4 @@
-# Lab XX - API Bancária Assíncrona com FastAPI
+# Lab 08 - API Bancária Assíncrona com FastAPI
 
 Este projeto faz parte do **Bootcamp DIO - Back-end com Python** e tem como objetivo praticar o desenvolvimento de **APIs RESTful modernas**, utilizando **FastAPI**, **programação assíncrona** e **boas práticas de design de APIs**, aplicadas a um contexto de **sistema bancário**.
 

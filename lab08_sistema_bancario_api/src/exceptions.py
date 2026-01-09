@@ -1,4 +1,4 @@
-class AccountNotFoundError(Exception):
+class NotFoundError(Exception):
     pass
 
 

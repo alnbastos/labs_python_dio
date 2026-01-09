@@ -1,7 +1,7 @@
 from sqlalchemy.future import select
 
 from src.configs.dependencies import Database
-from src.exceptions import AccountNotFoundError, BusinessError
+from src.exceptions import BusinessError, NotFoundError
 from src.models.account import AccountModel
 from src.models.transaction import TransactionModel, TransactionType
 from src.schemas.transaction import TransactionIn
@@ -30,7 +30,7 @@ class TransactionService:
             db=db, pk=transaction.account_id
         )
         if not account:
-            raise AccountNotFoundError
+            raise NotFoundError("Account")
 
         tr = TransationRepository(
             balance=float(account.balance),
